@@ -1,0 +1,26 @@
+name: Deploy to Cloudflare Pages
+
+# Push to main -> the site auto-updates on Cloudflare Pages.
+# (This is the "git-connected" behaviour, implemented via GitHub Actions so it
+#  works with an API token only — no Cloudflare dashboard GitHub-App click.)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy . --project-name=lyveira-web --branch=main --commit-dirty=true
