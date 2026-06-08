@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lyveira — your calm corner for everyday wellbeing</title>
-<meta name="description" content="Lyveira brings mood tracking, habits, journaling, and guided calm into one private, beautiful app. Build small steps into real change.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23818cf8'/%3E%3C/svg%3E">
+<meta name="description" content="Lyveira brings mood, habits, journaling, and guided calm into one private, beautiful app. Small steps, every day — and a garden that grows with you.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23818cf8'/%3E%3Cpath d='M7 21a9 9 0 0 1 18 0' stroke='%230a0a12' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta property="og:title" content="Lyveira — your calm corner for everyday wellbeing">
 <meta property="og:description" content="Mood, habits, journaling, and guided calm — together in one private, beautiful app.">
 <meta property="og:type" content="website">
@@ -14,134 +14,314 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div class="aurora"></div><div class="stars"></div>
 
-<header class="site">
-  <div class="brand"><a href="/"><span class="dot"></span>Lyveira</a></div>
-  <nav>
-    <a class="navlink" href="#features">Features</a>
-    <a class="navlink" href="#how">How it works</a>
-    <a class="navlink" href="#faq">FAQ</a>
-    <a class="navlink" href="support/">Support</a>
-    <a class="btn" href="#get">Get the app</a>
-  </nav>
+<!-- NAV -->
+<header class="nav">
+  <div class="container">
+    <a class="brand" href="/">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#lg)"/><path d="M7 21a9 9 0 0 1 18 0" stroke="#0a0a12" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="21" r="2.3" fill="#0a0a12"/><defs><linearGradient id="lg" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#5eead4"/></linearGradient></defs></svg>
+      Lyveira
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#calm">Calm</a>
+      <a href="pricing/">Pricing</a>
+      <a href="about/">About</a>
+      <a href="support/">Support</a>
+      <a class="btn btn-primary" href="#get" style="padding:9px 18px">Get the app</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+  </div>
 </header>
 
-<!-- ── Hero ── -->
+<!-- HERO -->
 <section class="hero">
-  <div class="inner container">
-    <span class="eyebrow">Mental wellbeing, simplified</span>
-    <h1>Your calm corner for<br><span class="grad">everyday wellbeing</span></h1>
-    <p class="sub">Lyveira brings mood, habits, journaling, and guided calm into one private, beautiful app — so small steps add up to real change.</p>
-    <div class="cta-row" id="get">
+  <div class="orb" aria-hidden="true"></div>
+  <div class="container">
+    <span class="eyebrow"><span class="pulse"></span> Mental wellbeing, beautifully simple</span>
+    <h1>Your calm corner for<br><span class="grad-text">everyday wellbeing</span></h1>
+    <p class="sub">Mood, habits, journaling, and guided calm — together in one private, beautiful app. Small steps, every day, and a garden that grows with you.</p>
+    <div class="hero-cta" id="get">
       <a class="appstore" href="https://apps.apple.com/app/id6768826351" aria-label="Download on the App Store">
         <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-37 16.6-65 50.5-85.6-19-27.2-47.5-42.2-85.1-45.1-35.8-2.8-75 21-89.3 21-15.1 0-49.7-20-76.9-20C61.2 138.6 0 184.6 0 278.3c0 27.7 5.1 56.3 15.2 85.8 13.5 38.8 62.3 134 113.2 132.4 26.6-.6 45.4-18.9 80-18.9 33.6 0 51 18.9 80.6 18.9 51.5-.7 95.6-87.6 108.5-126.5-69.1-32.6-65.6-95.5-65.6-97.9zm-56.3-164.2c27.1-32.2 24.7-61.5 23.9-72-23.5 1.4-50.7 16-66.2 34.2-17.1 19.5-27.2 43.7-25 70.9 25.4 1.9 48.6-11.4 67.3-33.1z"/></svg>
-        <span><span class="small">Coming soon to the</span><br><span class="big">App Store</span></span>
+        <span><span class="s">Coming soon to the</span><br><span class="b">App Store</span></span>
       </a>
-      <a class="btn ghost" href="#features">See what's inside</a>
+      <a class="btn btn-ghost" href="#features">Explore the app →</a>
     </div>
-    <p class="cta-note">iPhone first &middot; Android on the way &middot; Free to start</p>
+    <p class="hero-note">iPhone first · Android on the way · Free to start</p>
 
-    <div class="phone-wrap" aria-hidden="true">
+    <!-- Animated phone -->
+    <div class="phone-stage">
       <div class="phone">
         <div class="notch"></div>
         <div class="screen">
-          <div class="greet">Good morning,<b>Alex</b></div>
-          <div class="chip"><span class="lbl">How are you feeling?</span><div class="moods">😌 🙂 😐 😔 😣</div></div>
-          <div class="chip"><span class="lbl">Today's habits &middot; 3 of 4</span><div class="bar" style="width:75%"></div></div>
-          <div class="chip"><span class="lbl">Your garden</span>🌱 12-day streak &middot; +40 XP</div>
-          <div class="chip"><span class="lbl">Calm Corner</span>🫁 Breathe &middot; 🧘 Meditate &middot; 🎵 Soundscapes</div>
+          <div class="slide on">
+            <div class="sl-greet">Good morning,<b>Alex ☀️</b></div>
+            <div class="card-mini"><span class="lbl">How are you feeling?</span><div class="moods"><span>😌</span><span>🙂</span><span>😐</span><span>😔</span><span>😣</span></div></div>
+            <div class="card-mini"><span class="lbl">Today's habits · 3 of 4</span><div class="prog"><i style="width:75%"></i></div></div>
+            <div class="card-mini"><span class="lbl">Your garden</span><div class="garden">🌱🌿🌸🌳🍃</div></div>
+          </div>
+          <div class="slide">
+            <div class="sl-greet"><b>Calm Corner 🌙</b></div>
+            <div class="card-mini"><span class="lbl">Breathe</span><div class="pill-row"><span class="pill">4-7-8</span><span class="pill">Box</span><span class="pill">Calm</span></div></div>
+            <div class="card-mini"><span class="lbl">Soundscapes</span><div class="pill-row"><span class="pill">🌧 Rain</span><span class="pill">🔥 Fire</span><span class="pill">🌊 Ocean</span></div></div>
+            <div class="card-mini"><span class="lbl">Sleep stories</span><div class="pill-row"><span class="pill">🌌 Drift</span><span class="pill">🏔 Still</span></div></div>
+          </div>
+          <div class="slide">
+            <div class="sl-greet"><b>AI Coach 🤖</b></div>
+            <div class="coach-bubble">That sounds like a heavy day. What's one small thing that felt okay?</div>
+            <div class="card-mini" style="align-self:flex-end;max-width:80%"><span class="lbl" style="margin:0">You</span>The walk after lunch, honestly.</div>
+            <div class="coach-bubble">Beautiful. Want to make that a tiny daily habit?</div>
+          </div>
+          <div class="slide">
+            <div class="sl-greet"><b>Your week 📈</b></div>
+            <div class="card-mini"><span class="lbl">Mood trend</span><div class="prog"><i style="width:64%"></i></div></div>
+            <div class="card-mini"><span class="lbl">Lifts you</span><div class="pill-row"><span class="pill">🚶 Walks</span><span class="pill">☎️ Friends</span><span class="pill">😴 Sleep</span></div></div>
+            <div class="card-mini"><span class="lbl">Streak</span><div class="garden" style="font-size:18px;letter-spacing:1px">🔥 12 days · +240 XP</div></div>
+          </div>
+          <div class="dots"><b class="on"></b><b></b><b></b><b></b></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Features ── -->
-<section class="block" id="features">
+<!-- TRUST MARQUEE -->
+<div class="trustbar"><div class="marquee">
+  <span>Encrypted journal</span><span>No ads, ever</span><span>You own your data</span><span>No tracking</span><span>Private by design</span><span>Export anytime</span>
+  <span>Encrypted journal</span><span>No ads, ever</span><span>You own your data</span><span>No tracking</span><span>Private by design</span><span>Export anytime</span>
+</div></div>
+
+<!-- STATS -->
+<section style="padding-top:64px;padding-bottom:24px">
   <div class="container">
-    <div class="section-head">
-      <h2>Everything for your wellbeing, in one place</h2>
-      <p>Gentle tools that fit into real life — not another thing to feel behind on.</p>
+    <div class="stats">
+      <div class="stat reveal"><div class="n grad-text">6-in-1</div><div class="l">tools in one calm space</div></div>
+      <div class="stat reveal d1"><div class="n grad-text">60s</div><div class="l">to check in with yourself</div></div>
+      <div class="stat reveal d2"><div class="n grad-text">7 days</div><div class="l">free Premium trial</div></div>
+      <div class="stat reveal d3"><div class="n grad-text">100%</div><div class="l">private — encrypted on device</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="head reveal">
+      <div class="kicker">Everything, in one place</div>
+      <h2>Gentle tools that fit into real life</h2>
+      <p>Not another thing to feel behind on — just small, kind moments that add up.</p>
     </div>
     <div class="features">
-      <div class="feature"><div class="ico">🌤️</div><h3>Mood tracking</h3><p>Check in with yourself in seconds and watch patterns emerge over days and weeks.</p></div>
-      <div class="feature"><div class="ico">🌱</div><h3>Habits that grow</h3><p>Build routines that stick with streaks, weekly streak freezes, and a garden that flourishes as you do.</p></div>
-      <div class="feature"><div class="ico">📓</div><h3>Journal &amp; reflect</h3><p>Write freely, or use guided CBT prompts to gently reframe unhelpful thoughts.</p></div>
-      <div class="feature"><div class="ico">🧘</div><h3>Calm Corner</h3><p>Breathing, grounding, meditation, ambient soundscapes, a focus timer, and sleep stories — calm on demand.</p></div>
-      <div class="feature"><div class="ico">🤖</div><h3>AI Coach</h3><p>A private, judgment-free coach that reflects on your entries and checks in when you need it.</p><span class="tag">Premium</span></div>
-      <div class="feature"><div class="ico">🎯</div><h3>Financial wellbeing</h3><p>Set money goals and check your Life Compass — because financial stress is wellbeing too.</p></div>
+      <div class="feature reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4 4 0 0 0 7 0"/><path d="M9 9h.01M15 9h.01"/></svg></div>
+        <h3>Mood tracking</h3><p>Check in in seconds and watch patterns emerge over days and weeks.</p>
+      </div>
+      <div class="feature reveal d1">
+        <div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V11"/><path d="M12 11c0-3 2-5 6-5 0 4-3 5-6 5z"/><path d="M12 14c0-3-2-5-6-5 0 4 3 5 6 5z"/></svg></div>
+        <h3>Habits that grow</h3><p>Streaks, weekly streak freezes, and a garden that flourishes as you do.</p>
+      </div>
+      <div class="feature reveal d2">
+        <div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M19 3v18"/><path d="M8 7h7M8 11h7"/></svg></div>
+        <h3>Journal &amp; reflect</h3><p>Write freely, or use guided CBT prompts to gently reframe a thought.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/><path d="M3 17c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/><path d="M3 7c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/></svg></div>
+        <h3>Calm Corner</h3><p>Breathing, grounding, meditation, soundscapes, a focus timer, and sleep stories.</p>
+      </div>
+      <div class="feature reveal d1">
+        <span class="badge">Premium</span>
+        <div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M18 14l.9 2.2L21 17l-2.1.8L18 20l-.9-2.2L15 17l2.1-.8z"/></svg></div>
+        <h3>AI Coach</h3><p>A private, judgment-free coach that reflects on your entries and checks in.</p>
+      </div>
+      <div class="feature reveal d2">
+        <div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></div>
+        <h3>Financial wellbeing</h3><p>Set money goals and check your Life Compass — financial stress is wellbeing too.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── How it works ── -->
-<section class="block" id="how">
+<!-- GARDEN SHOWCASE -->
+<section>
   <div class="container">
-    <div class="section-head">
-      <h2>Small steps, every day</h2>
-      <p>Lyveira is built around tiny, repeatable moments — not big overwhelming goals.</p>
-    </div>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><h3>Check in</h3><p>Log your mood and how your day felt. It takes seconds.</p></div>
-      <div class="step"><div class="num">2</div><h3>Build momentum</h3><p>Tiny habits, gentle reminders, and a garden that grows with your streaks.</p></div>
-      <div class="step"><div class="num">3</div><h3>Reflect &amp; grow</h3><p>Journal, get AI reflections, and see what genuinely lifts you.</p></div>
+    <div class="split reveal">
+      <div>
+        <h2>Watch small steps <span class="grad-text">grow</span></h2>
+        <p>Every check-in, habit, and calm session earns XP and grows your garden. Progress you can actually see — gentle motivation, never pressure.</p>
+        <ul class="checklist">
+          <li>Streaks with weekly freezes, so one off day never undoes your momentum</li>
+          <li>Badges and a living garden that blooms as you show up</li>
+          <li>Daily challenges that take a minute, not an hour</li>
+        </ul>
+      </div>
+      <div class="visual">
+        <div class="garden-art">
+          <div class="sprout">🌱</div><div class="sprout">🌿</div><div class="sprout">🌸</div><div class="sprout">🌳</div><div class="sprout">🍃</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── Trust ── -->
-<section class="block trust">
+<!-- CALM SHOWCASE -->
+<section id="calm">
   <div class="container">
-    <div class="section-head">
-      <h2>Private by design</h2>
-      <p>Your inner life is yours. We built Lyveira that way from day one.</p>
-    </div>
-    <div class="trust-grid">
-      <div class="t"><div class="ico">🔒</div><h4>Encrypted journal</h4><p>Entries are encrypted on your device.</p></div>
-      <div class="t"><div class="ico">🚫</div><h4>No ads, ever</h4><p>And we never sell your data.</p></div>
-      <div class="t"><div class="ico">📦</div><h4>You own it</h4><p>Export or delete everything, anytime.</p></div>
-      <div class="t"><div class="ico">👁️</div><h4>No tracking</h4><p>We don't follow you across apps.</p></div>
+    <div class="split flip reveal">
+      <div class="visual">
+        <div class="breath-demo">
+          <div class="breath-circle">Breathe in</div>
+          <div class="pill-row" style="justify-content:center"><span class="pill">🫁 Breathing</span><span class="pill">🌍 Grounding</span><span class="pill">🧘 Meditation</span><span class="pill">🎵 Soundscapes</span><span class="pill">🌙 Sleep</span></div>
+        </div>
+      </div>
+      <div>
+        <h2>Find calm <span class="grad-text">on demand</span></h2>
+        <p>A whole toolkit for hard moments and wind-downs alike — guided breathing, grounding exercises, meditations, layered ambient soundscapes, a focus timer, and sleep stories.</p>
+        <ul class="checklist">
+          <li>Box, 4-7-8, and calming breath patterns with a visual guide</li>
+          <li>Mix your own ambient soundscape — rain, fire, ocean, and more</li>
+          <li>A personal Safety Plan and body-map check-in for tougher days</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── FAQ ── -->
-<section class="block" id="faq">
+<!-- AI COACH SHOWCASE -->
+<section>
   <div class="container">
-    <div class="section-head"><h2>Questions, answered</h2></div>
-    <div class="faq">
-      <details><summary>Is Lyveira free?</summary><p>Yes — the core app is free. Lyveira Premium is optional and unlocks the AI Coach, full mood analytics, unlimited habits, extra streak freezes, and more, with a 7-day free trial.</p></details>
+    <div class="split reveal">
+      <div>
+        <div class="kicker" style="color:var(--gold)">Premium</div>
+        <h2>A coach in your <span class="grad-text">pocket</span></h2>
+        <p>The AI Coach reads your journal entries (only when you ask), reflects them back with warmth, helps you reframe, and nudges the tiny next step. Private, patient, never judging.</p>
+        <ul class="checklist">
+          <li>Reflections after journaling that actually feel heard</li>
+          <li>Gentle reframes drawn from CBT-style thinking</li>
+          <li>Your entries are never used to train models</li>
+        </ul>
+      </div>
+      <div class="visual">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="coach-bubble" style="font-size:14px">Rough day? Tell me one moment that felt even slightly lighter.</div>
+          <div class="card-mini" style="align-self:flex-end;max-width:75%">Lunch with Sam was nice.</div>
+          <div class="coach-bubble" style="font-size:14px">Connection helps you — I'm noticing that. Want a tiny habit around it?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section>
+  <div class="container">
+    <div class="head reveal"><div class="kicker">Made for real life</div><h2>For wherever you are today</h2></div>
+    <div class="personas">
+      <div class="persona reveal"><div class="e">🌧️</div><h4>The overwhelmed</h4><p>Two-minute check-ins that make the day feel lighter.</p></div>
+      <div class="persona reveal d1"><div class="e">🌱</div><h4>The builder</h4><p>Habits and streaks that finally stick.</p></div>
+      <div class="persona reveal d2"><div class="e">🌙</div><h4>The night-owl</h4><p>Wind-downs, sleep stories, and quiet.</p></div>
+      <div class="persona reveal d3"><div class="e">✍️</div><h4>The reflector</h4><p>Journaling with a coach who listens.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section>
+  <div class="container">
+    <div class="head reveal">
+      <div class="kicker" style="color:var(--teal)">Private by design</div>
+      <h2>Your inner life stays yours</h2>
+      <p>We built Lyveira so your most personal moments never become someone else's product.</p>
+    </div>
+    <div class="features reveal">
+      <div class="feature"><div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h3>Encrypted on device</h3><p>Journal entries are encrypted right on your phone.</p></div>
+      <div class="feature"><div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5 5l14 14"/></svg></div><h3>No ads, no selling</h3><p>We never show ads or sell your information.</p></div>
+      <div class="feature"><div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>You're in control</h3><p>Export or permanently delete everything, anytime.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING PREVIEW -->
+<section>
+  <div class="container">
+    <div class="head reveal"><div class="kicker">Simple pricing</div><h2>Free to start. Premium when you're ready.</h2><p>Everything you need to begin is free. Premium unlocks the AI Coach and deeper insights — with a 7-day free trial.</p></div>
+    <div class="plans reveal">
+      <div class="plan">
+        <div class="tier">Free</div>
+        <div class="price">$0</div>
+        <ul>
+          <li>Mood, habits &amp; journaling</li>
+          <li>Calm Corner essentials</li>
+          <li>Garden, streaks &amp; badges</li>
+          <li>Encrypted &amp; private</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://apps.apple.com/app/id6768826351" style="width:100%;justify-content:center">Get started</a>
+      </div>
+      <div class="plan pro">
+        <div class="ribbon">7-day free trial</div>
+        <div class="tier">Premium</div>
+        <div class="price">$8.99 <small>/mo</small></div>
+        <ul>
+          <li>Everything in Free</li>
+          <li>AI Coach — reflections &amp; reframes</li>
+          <li>Full mood-correlation analytics</li>
+          <li>Unlimited habits &amp; calm sessions</li>
+          <li>Adaptive soundscape mixing</li>
+        </ul>
+        <a class="btn btn-primary" href="pricing/" style="width:100%;justify-content:center">See Premium →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="head reveal"><div class="kicker">Good to know</div><h2>Questions, answered</h2></div>
+    <div class="faq reveal">
+      <details><summary>Is Lyveira free?</summary><p>Yes — the core app is free. Lyveira Premium is optional and adds the AI Coach, full mood analytics, unlimited habits, and more, with a 7-day free trial.</p></details>
       <details><summary>Is my data private?</summary><p>Your journal is encrypted on your device. We never sell your data or show ads, and you can export or permanently delete everything at any time. See our <a href="privacy/">Privacy Policy</a>.</p></details>
-      <details><summary>What does the AI Coach do with my entries?</summary><p>When you ask it to reflect, that content is sent to our AI provider to generate a response. We don't allow it to be used to train models. The AI Coach is a wellbeing tool, not a medical or emergency service.</p></details>
       <details><summary>Is Lyveira therapy or medical advice?</summary><p>No. Lyveira supports everyday self-care and reflection. It is not a medical device and is not a substitute for professional care. If you may be in crisis, please reach out to a local emergency number or crisis line.</p></details>
       <details><summary>Which devices are supported?</summary><p>iPhone first, with Android on the way. Join us at launch on the App Store.</p></details>
     </div>
   </div>
 </section>
 
-<!-- ── Final CTA ── -->
-<section class="block final">
+<!-- FINAL CTA -->
+<section class="cta-final">
   <div class="container">
-    <div class="card">
+    <div class="cta-card reveal">
+      <div class="orb" style="position:absolute;top:-160px;opacity:.5" aria-hidden="true"></div>
       <h2>Start building your calm</h2>
       <p>A quieter, kinder relationship with yourself — one small step at a time.</p>
-      <div class="cta-row" style="justify-content:center">
-        <a class="appstore" href="https://apps.apple.com/app/id6768826351" aria-label="Download on the App Store">
-          <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-37 16.6-65 50.5-85.6-19-27.2-47.5-42.2-85.1-45.1-35.8-2.8-75 21-89.3 21-15.1 0-49.7-20-76.9-20C61.2 138.6 0 184.6 0 278.3c0 27.7 5.1 56.3 15.2 85.8 13.5 38.8 62.3 134 113.2 132.4 26.6-.6 45.4-18.9 80-18.9 33.6 0 51 18.9 80.6 18.9 51.5-.7 95.6-87.6 108.5-126.5-69.1-32.6-65.6-95.5-65.6-97.9zm-56.3-164.2c27.1-32.2 24.7-61.5 23.9-72-23.5 1.4-50.7 16-66.2 34.2-17.1 19.5-27.2 43.7-25 70.9 25.4 1.9 48.6-11.4 67.3-33.1z"/></svg>
-          <span><span class="small">Coming soon to the</span><br><span class="big">App Store</span></span>
-        </a>
-      </div>
+      <a class="appstore" href="https://apps.apple.com/app/id6768826351" aria-label="Download on the App Store" style="display:inline-flex">
+        <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268c-.2-37 16.6-65 50.5-85.6-19-27.2-47.5-42.2-85.1-45.1-35.8-2.8-75 21-89.3 21-15.1 0-49.7-20-76.9-20C61.2 138.6 0 184.6 0 278.3c0 27.7 5.1 56.3 15.2 85.8 13.5 38.8 62.3 134 113.2 132.4 26.6-.6 45.4-18.9 80-18.9 33.6 0 51 18.9 80.6 18.9 51.5-.7 95.6-87.6 108.5-126.5-69.1-32.6-65.6-95.5-65.6-97.9zm-56.3-164.2c27.1-32.2 24.7-61.5 23.9-72-23.5 1.4-50.7 16-66.2 34.2-17.1 19.5-27.2 43.7-25 70.9 25.4 1.9 48.6-11.4 67.3-33.1z"/></svg>
+        <span><span class="s">Coming soon to the</span><br><span class="b">App Store</span></span>
+      </a>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="fnav">
-    <a href="/">Home</a><a href="privacy/">Privacy</a><a href="terms/">Terms</a><a href="support/">Support</a>
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/"><svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#lg2)"/><path d="M7 21a9 9 0 0 1 18 0" stroke="#0a0a12" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="21" r="2.3" fill="#0a0a12"/><defs><linearGradient id="lg2" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#5eead4"/></linearGradient></defs></svg>Lyveira</a>
+        <p class="tag">Your calm corner for everyday wellbeing.</p>
+      </div>
+      <div><h5>Product</h5><a href="#features">Features</a><a href="#calm">Calm Corner</a><a href="pricing/">Pricing</a></div>
+      <div><h5>Company</h5><a href="about/">About</a><a href="support/">Support</a><a href="mailto:support@lyveira.app">Contact</a></div>
+      <div><h5>Legal</h5><a href="privacy/">Privacy</a><a href="terms/">Terms</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span data-year>2026</span> Lyveira</span>
+      <span class="disc">Lyveira supports everyday self-care. It is not a medical device or a substitute for professional care.</span>
+    </div>
   </div>
-  &copy; 2026 Lyveira &middot; <a href="mailto:support@lyveira.app">support@lyveira.app</a><br>
-  <span class="muted" style="font-size:13px">Lyveira supports everyday self-care. It is not a medical device or a substitute for professional care.</span>
 </footer>
 
+<script src="main.js" defer></script>
 </body>
 </html>
