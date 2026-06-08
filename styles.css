@@ -78,8 +78,8 @@ img, svg { max-width: 100%; display: block; }
 .brand:hover { color: var(--text); }
 .brand .mark { width: 30px; height: 30px; }
 .nav-links { margin-left: auto; display: flex; gap: 26px; align-items: center; }
-.nav-links a { color: var(--muted); font-size: 15px; font-weight: 500; }
-.nav-links a:hover { color: var(--text); }
+.nav-links a:not(.btn) { color: var(--muted); font-size: 15px; font-weight: 500; }
+.nav-links a:not(.btn):hover { color: var(--text); }
 .nav-toggle { display: none; margin-left: auto; background: none; border: 0; color: var(--text); font-size: 24px; cursor: pointer; }
 
 /* ── Buttons / badges ─────────────────────────────────────────────────────── */
