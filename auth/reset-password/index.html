@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reset your password — Lyveira</title>
+<meta name="description" content="Open the Lyveira app to finish resetting your password.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><a href="../../">Lyveira</a></div>
+  <nav><a href="../../privacy/">Privacy</a><a href="../../terms/">Terms</a><a href="../../support/">Support</a></nav>
+</header>
+<div class="wrap">
+  <h1>Reset your password</h1>
+
+  <!--
+    Web fallback for the password-reset deep link.
+
+    On an iPhone with the app installed and the universal-link association live
+    (AASA worker lists /auth/reset-password), tapping the email link opens the
+    APP directly and this page is never seen. This page is the fallback for the
+    cases iOS universal links can't cover: the link opened in a desktop browser,
+    the app isn't installed, or the AASA association hasn't propagated yet. It
+    bridges into the app via the lyveira:// custom scheme — it does NOT collect
+    the new password itself (the app owns that screen + validation).
+  -->
+
+  <div class="tldr" id="ok-state">
+    <strong>Almost there</strong>
+    <p style="margin:6px 0 0">Open this link in the <strong>Lyveira app</strong> on the iPhone where you installed it to choose a new password.</p>
+  </div>
+
+  <p style="margin:20px 0">
+    <a id="open-app" class="btn" href="#" style="display:inline-block;background:#4f46e5;color:#fff;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:600">Open the Lyveira app</a>
+  </p>
+
+  <p class="muted" id="no-app">
+    Don't have the app on this device? Install <strong>Lyveira</strong> from the App Store and open this email link again on the same iPhone. The reset link expires <strong>1 hour</strong> after it was requested — if it has expired, request a new one from the app's <em>Forgot password</em> screen.
+  </p>
+
+  <div class="tldr" id="bad-state" style="display:none">
+    <strong>This link is missing its reset code</strong>
+    <p style="margin:6px 0 0">Please open the most recent “Reset your Lyveira password” email and tap the button there, or request a new link from the app's <em>Forgot password</em> screen.</p>
+  </div>
+
+  <p class="muted" style="margin-top:24px">Trouble resetting? Email <a href="mailto:support@lyveira.app">support@lyveira.app</a>.</p>
+</div>
+<footer>&copy; 2026 Lyveira &middot; <a href="../../">Home</a> &middot; <a href="../../privacy/">Privacy</a> &middot; <a href="../../terms/">Terms</a></footer>
+<script>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var token = (params.get('token') || '').trim();
+    var openBtn = document.getElementById('open-app');
+
+    if (!token) {
+      // No token — show the "missing code" guidance, hide the open-app CTA.
+      document.getElementById('ok-state').style.display = 'none';
+      document.getElementById('no-app').style.display = 'none';
+      openBtn.style.display = 'none';
+      document.getElementById('bad-state').style.display = 'block';
+      return;
+    }
+
+    // Build the app deep link. The app registers the "lyveira" scheme and
+    // expo-router serves /auth/reset-password?token=... (see
+    // dwasi-app/src/app/auth/reset-password.tsx).
+    var appUrl = 'lyveira://auth/reset-password?token=' + encodeURIComponent(token);
+    openBtn.setAttribute('href', appUrl);
+
+    // Best-effort auto-launch on a touch device, but only via a user-style
+    // navigation so a missing app fails quietly (no scary Safari error dialog
+    // on desktop). We attach it to the button and also try once on load for
+    // mobile; if the app isn't installed nothing happens and the button stays.
+    function launch() { window.location.href = appUrl; }
+    openBtn.addEventListener('click', function (e) { e.preventDefault(); launch(); });
+
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      // Defer slightly so the page paints first.
+      setTimeout(launch, 400);
+    }
+  })();
+</script>
+</body>
+</html>
