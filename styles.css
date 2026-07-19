@@ -179,6 +179,11 @@ section { padding: 80px 0; position: relative; }
 .feature p { margin: 0; color: var(--muted); font-size: 15px; }
 .feature .badge { position: absolute; top: 18px; right: 18px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--gold); border: 1px solid rgba(251,191,36,0.4); border-radius: 999px; padding: 3px 9px; }
+/* Coming-soon variant (teal) — never imply an installable feature (LLD 06 §2). */
+.feature .badge.soon { color: var(--teal); border-color: rgba(94,234,212,0.4); background: rgba(94,234,212,0.08); }
+.tag-soon { display: inline-block; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal);
+  border: 1px solid rgba(94,234,212,0.4); background: rgba(94,234,212,0.08); border-radius: 999px; padding: 2px 9px;
+  margin-left: 8px; vertical-align: middle; font-weight: 700; }
 
 /* split showcase */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
