@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confirm your email — Lyveira</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="description" content="Confirm your Lyveira email address.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="brand"><a href="../../">Lyveira</a></div>
+  <nav><a href="../../privacy/">Privacy</a><a href="../../terms/">Terms</a><a href="../../support/">Support</a></nav>
+</header>
+<div class="wrap">
+  <h1>Confirm your email</h1>
+
+  <!--
+    Landing page for the confirmation link in dwasi-identity's verification
+    email (services/transactional_email.py builds
+    {APP_DEEP_LINK_BASE}/auth/verify-email?token=...).
+
+    UNLIKE ../reset-password/, this page does NOT bridge into the app. Setting a
+    password needs a screen, a form and validation, so that one hands off to
+    lyveira:// and the app owns it. Confirming an address needs no input at all —
+    the token IS the proof — so redeeming it here is both simpler and strictly
+    better: it works on a desktop browser and with the app not installed, which
+    a deep link cannot do. There is deliberately no app route for this.
+
+    Before this page existed the URL matched nothing, and Cloudflare Pages serves
+    index.html with a 200 for unmatched paths — so every confirmation link landed
+    silently on the marketing homepage with no 404 and nothing logged.
+  -->
+
+  <div class="tldr" id="pending">
+    <strong>Confirming your address…</strong>
+    <p style="margin:6px 0 0" class="muted">This only takes a moment.</p>
+  </div>
+
+  <div class="tldr" id="done" style="display:none">
+    <strong>Your email is confirmed</strong>
+    <p style="margin:6px 0 0">Thanks — that's all we needed. You can close this page and carry on in the app.</p>
+  </div>
+
+  <div class="tldr" id="expired" style="display:none">
+    <strong>This confirmation link is invalid or has expired</strong>
+    <p style="margin:6px 0 0">Links can only be used once, and mail apps sometimes shorten them. Open the Lyveira app, sign in, and tap <em>Resend confirmation email</em> to get a fresh one.</p>
+  </div>
+
+  <div class="tldr" id="notoken" style="display:none">
+    <strong>This link is missing its confirmation code</strong>
+    <p style="margin:6px 0 0">Please open the most recent “Confirm your Lyveira email” message and tap the button there rather than copying the address by hand.</p>
+  </div>
+
+  <div class="tldr" id="offline" style="display:none">
+    <strong>We couldn't reach Lyveira just now</strong>
+    <p style="margin:6px 0 0">Your link is probably fine — this looks like a network problem. Try again in a moment, or reopen the link later.</p>
+    <p style="margin:12px 0 0">
+      <a class="btn btn-ghost" href="#" id="retry">Try again</a>
+    </p>
+  </div>
+
+  <p class="muted" style="margin-top:24px">
+    Still stuck? Email <a href="mailto:support@lyveira.app">support@lyveira.app</a>.
+  </p>
+</div>
+<footer>&copy; 2026 Lyveira &middot; <a href="../../">Home</a> &middot; <a href="../../privacy/">Privacy</a> &middot; <a href="../../terms/">Terms</a></footer>
+<script>
+  (function () {
+    'use strict';
+
+    // Host-based so a preview deployment does not silently confirm against prod.
+    var IDENTITY = 'https://auth.lyveira.app';
+
+    var states = ['pending', 'done', 'expired', 'notoken', 'offline'];
+    function show(id) {
+      for (var i = 0; i < states.length; i++) {
+        var el = document.getElementById(states[i]);
+        if (el) { el.style.display = (states[i] === id) ? 'block' : 'none'; }
+      }
+    }
+
+    var token = (new URLSearchParams(window.location.search).get('token') || '').trim();
+
+    // Strip the token from the address bar before anything else. It is a
+    // single-use credential and the URL is the most leak-prone place it can
+    // sit: browser history, the Referer header on any outbound click, and a
+    // screenshot of a shared screen. Removing it costs nothing because the
+    // value is already captured above. replaceState leaves no history entry, so
+    // Back does not restore it.
+    if (token && window.history && window.history.replaceState) {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+
+    if (!token) { show('notoken'); return; }
+
+    function confirmEmail() {
+      show('pending');
+      fetch(IDENTITY + '/auth/verify-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token })
+      }).then(function (res) {
+        if (res.ok) { show('done'); return; }
+        // Identity answers a bad, expired or already-used token with 400 — a
+        // deliberate choice there, since mail clients mangle and re-open links
+        // and none of that is a server error. Anything else (5xx, a gateway
+        // page) is our problem, not the link's, so say so rather than blaming
+        // the user's link.
+        show(res.status === 400 ? 'expired' : 'offline');
+      }).catch(function () {
+        // Network failure, DNS, or a blocked cross-origin request. Never
+        // reported as an expired link: the token may well be valid.
+        show('offline');
+      });
+    }
+
+    var retry = document.getElementById('retry');
+    if (retry) {
+      retry.addEventListener('click', function (e) { e.preventDefault(); confirmEmail(); });
+    }
+
+    confirmEmail();
+  })();
+</script>
+</body>
+</html>
