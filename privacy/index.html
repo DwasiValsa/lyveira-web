@@ -17,7 +17,7 @@
 </header>
 <div class="wrap">
   <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: June 8, 2026</p>
+  <p class="updated">Last updated: August 28, 2026</p>
 
   <p>Lyveira (&ldquo;Lyveira&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) helps you support your everyday mental wellbeing. We care deeply about your privacy. This policy explains what we collect, why, and the choices you have.</p>
 
@@ -50,15 +50,35 @@
   <p>We rely on your consent, on our legitimate interest in operating and improving Lyveira, and on performing our agreement with you.</p>
 
   <h2>AI features</h2>
-  <p>If you use the optional AI Coach, the content you submit for reflection (for example a journal entry) is sent to a third-party AI provider to generate a response. We instruct providers not to use your content to train their models. Please do not include information you would not want processed this way. The AI Coach is a wellbeing tool, not a medical or emergency service.</p>
+  <p>Lyveira&rsquo;s AI features are optional. They are off until you turn them on, and we ask for your permission in the app before any of your content is sent for AI processing. You can withdraw that permission at any time in Settings &rarr; Privacy, which stops all further AI processing while leaving everything you have written in place.</p>
+
+  <p><strong>Who receives the data.</strong> When an AI feature runs, the content it needs is sent to <strong>OpenAI</strong> (OpenAI, L.L.C., United States), which generates the response and the search embeddings. That request travels through <strong>Cloudflare</strong>&rsquo;s AI Gateway (Cloudflare, Inc., United States), which routes and rate-limits it on our behalf. No other AI provider receives your content.</p>
+
+  <p><strong>What is sent.</strong> Only what the feature you used needs:</p>
+  <ul>
+    <li><em>AI Coach chat</em> &mdash; the message you type, earlier messages in that conversation, and a short summary of your recent habits and mood.</li>
+    <li><em>Ask My Journal, journal reflections, correlations, and Story</em> &mdash; the journal entries relevant to your request, and the question you asked.</li>
+    <li><em>Journal search and memory</em> &mdash; your journal text, to create the numeric embeddings that make search work.</li>
+    <li><em>Journal prompts</em> &mdash; your current mood rating and recent entry tags. Not your entry text.</li>
+    <li><em>Daily brief and reflections</em> &mdash; your habit names, streak counts, and mood ratings for the last seven days.</li>
+    <li><em>Money and mood insights</em> &mdash; the financial goals and amounts you have recorded, together with your mood ratings.</li>
+  </ul>
+
+  <p><strong>What is never sent.</strong> Your email address, name, account identifiers, password, payment details, and precise location are never included in an AI request.</p>
+
+  <p><strong>How it is protected.</strong> OpenAI and Cloudflare process this data only as our processors, under written agreements that require confidentiality and security protections equivalent to those described in this policy, and that permit processing only on our instructions. Your content is <strong>not used to train their models</strong>, and it is not retained by them for their own purposes.</p>
+
+  <p>Even so, please do not enter information you would not want processed this way. The AI Coach is a wellbeing tool, not a medical or emergency service.</p>
 
   <h2>How information is shared</h2>
-  <p>We share information only with service providers who help us run Lyveira, under contract:</p>
+  <p>We share information only with service providers who help us run Lyveira, under contract, and each is required to provide the same or equivalent protection for your data as this policy describes:</p>
   <ul>
-    <li>Cloud hosting and storage (Amazon Web Services).</li>
-    <li>Crash and performance monitoring (Grafana).</li>
-    <li>AI processing for the AI Coach (our AI provider).</li>
-    <li>Payments and subscriptions (Apple, and our subscription manager).</li>
+    <li>Cloud hosting, database, and storage (Amazon Web Services) &mdash; United States.</li>
+    <li>AI inference and embeddings (OpenAI), routed via Cloudflare AI Gateway &mdash; United States. See <em>AI features</em> above.</li>
+    <li>Diagnostics and, only if you enable analytics, product-usage events (PostHog). Journal and coach content is never included.</li>
+    <li>Push notification delivery (Apple Push Notification service; Google Firebase Cloud Messaging on Android).</li>
+    <li>Transactional email such as password resets (Resend).</li>
+    <li>Payments and subscriptions (Apple, and RevenueCat as our subscription manager).</li>
   </ul>
   <p>We do not sell your personal information, and we do not share it for advertising.</p>
 
