@@ -2,3 +2,4 @@
 .github
 .assetsignore
 *.md
+tests

@@ -1,0 +1,5 @@
+# Cloudflare Pages redirects.
+# The store consoles hold these URLs; the directories on disk are named
+# differently, so without these lines the links a reviewer clicks 404.
+/privacy-policy   /privacy/       301
+/delete-account   /delete-data/   301

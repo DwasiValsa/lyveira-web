@@ -9,7 +9,21 @@ on:
   workflow_dispatch:
 
 jobs:
+  # The copy gate. There is no build step to fail, so without this a reverted
+  # policy sentence reaches lyveira.app with nothing complaining.
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Policy + link copy gate
+        run: bash tests/policy-copy.sh
+
   deploy:
+    needs: [test]
     runs-on: ubuntu-latest
     permissions:
       contents: read

@@ -25,7 +25,8 @@
   <div class="tldr">
     <strong>The short version</strong>
     <ul>
-      <li>Your journal entries are encrypted on your device.</li>
+      <li>Your journal entries are encrypted on your device and again on our servers.</li>
+      <li>Your mood logs, journal entries, AI Coach conversations, and crisis-screen records are health-related information, and we treat them that way.</li>
       <li>We do not sell your data, and we do not use it for advertising.</li>
       <li>We do not track you across other apps or websites.</li>
       <li>You can export or permanently delete your data at any time.</li>
@@ -36,10 +37,13 @@
   <h3>Account information</h3>
   <p>When you create an account we collect your email address and a display name. You can also use the app as a guest, with data stored on your device.</p>
   <h3>Content you create</h3>
-  <p>Moods, habits, journal entries, goals, safety plans, and similar content you choose to save. Journal entries are encrypted on your device.</p>
+  <p>Moods, habits, journal entries, goals, safety plans, and similar content you choose to save. Journal entries are encrypted on your device and again on our servers.</p>
   <h3>Diagnostics</h3>
   <p>Crash reports, performance data, and basic product-interaction events that help us find bugs and improve the app. We minimize linking this to your identity.</p>
-  <p>We do not collect your contacts, photos, or precise location. We do not collect health data unless you explicitly enable an optional integration (for example Apple Health, which is off by default and read on-device only).</p>
+  <p>We do not collect your contacts, photos, or precise location.</p>
+  <h3>Health-related information</h3>
+  <p>Your mood logs, journal entries, voice-journal transcripts, AI Coach conversations, safety plan, and crisis-screen records are health-related information. We collect them because they <em>are</em> the app &mdash; there is no version of Lyveira that supports your everyday wellbeing without holding what you chose to write down.</p>
+  <p>That information is encrypted in transit and at rest, and journal entries are encrypted on your device and again on our servers. We do not infer or record a diagnosis, and we do not use this information to decide anything about you. We never sell it, and we never share it with advertisers, data brokers, insurers, or employers. Lyveira does not read from Apple Health or Google Health Connect in this release.</p>
 
   <h2>How we use information</h2>
   <ul>
@@ -77,26 +81,27 @@
     <li>Cloud hosting, database, and storage (Amazon Web Services) &mdash; United States.</li>
     <li>AI inference and embeddings (OpenAI), routed via Cloudflare AI Gateway &mdash; United States. See <em>AI features</em> above.</li>
     <li>Diagnostics and, only if you enable analytics, product-usage events (PostHog). Journal and coach content is never included.</li>
-    <li>Push notification delivery (Apple Push Notification service; Google Firebase Cloud Messaging on Android).</li>
+    <li>Push notification delivery (Expo Application Services, which relays every notification on to Apple Push Notification service on iOS and Google Firebase Cloud Messaging on Android). Expo receives your device&rsquo;s push token and the text of the notification &mdash; which can contain a habit name you typed, or a line from your daily brief or your Story. It does not receive your journal entries, your coach conversations, your email address, or your account identifier.</li>
     <li>Transactional email such as password resets (Resend).</li>
-    <li>Payments and subscriptions (Apple, and RevenueCat as our subscription manager).</li>
+    <li>Payments and subscriptions. Apple on iOS and Google on Android take the payment; we never see your card details. RevenueCat, our subscription manager, receives the store&rsquo;s purchase receipt, your subscription status, and your Lyveira account identifier, so that what you bought reaches the right account &mdash; not your name, email address, or any of your content.</li>
   </ul>
   <p>We do not sell your personal information, and we do not share it for advertising.</p>
 
   <h2>Data retention</h2>
   <p>We keep your information for as long as your account is active. When you delete your account, we delete or anonymize your personal data, except where we must keep limited records to comply with law.</p>
+  <p>One record outlives the deletion: a one-way hash of your email address, plus your email address and display name held in encrypted form, kept indefinitely so we can show that an account existed and was deleted and so the same address cannot be silently re-registered as though nothing had happened. It holds none of your content. <a href="../delete-data/">Deleting your data</a> lists everything we keep and for how long.</p>
 
   <h2>Your rights</h2>
   <p>At any time you can:</p>
   <ul>
     <li>Access and export your data (Settings &rarr; Export My Data).</li>
     <li>Correct your profile information.</li>
-    <li>Permanently delete your account and associated data (Settings &rarr; Delete Account).</li>
+    <li>Permanently delete your account and associated data (Settings &rarr; Privacy Settings &rarr; Delete all my data). You can also <a href="../delete-data/">request deletion without the app</a>.</li>
   </ul>
   <p>Depending on where you live (for example the EEA/UK under GDPR, or California under the CCPA), you may have additional rights. Contact us to exercise them.</p>
 
   <h2>Security</h2>
-  <p>We use encryption in transit, on-device encryption of journal content, and access controls. No system is perfectly secure, but we work hard to protect your information.</p>
+  <p>We use encryption in transit (TLS), encryption at rest on our database and storage, field-level encryption of your journal entries and of what the AI Coach remembers about you, on-device encryption of journal content, and access controls. Your AI Coach conversation transcripts are not field-level encrypted &mdash; they are protected by that at-rest encryption and by access controls, not by a separate key. No system is perfectly secure, but we work hard to protect your information.</p>
 
   <h2>Children</h2>
   <p>Lyveira is not directed to children under 13 (or the minimum age in your country), and we do not knowingly collect their personal data.</p>
