@@ -344,6 +344,14 @@ must_contain_line _redirects '/delete-account   /delete-data/   301'
 must_not_contain_any_html 'freeze'
 must_not_contain_any_html 'Freeze'
 
+# ── Mood-matched mixes are not AI ───────────────────────────────────────────
+# The app picks a preset mix from the mood logged today by a fixed rule; no
+# model is involved. Founder decision 2026-10-12 (match-my-mood): rename it,
+# keep it Premium. The site called it an AI Mix still to come.
+must_not_contain_any_html 'AI Mix'
+must_not_contain_any_html 'AI mix'
+must_not_contain_any_html 'AI Soundscape'
+
 # ── Report ──────────────────────────────────────────────────────────────────
 
 if [ ${#failures[@]} -gt 0 ]; then
