@@ -336,6 +336,14 @@ must_contain_line _redirects '/privacy-policy   /privacy/       301'
 must_contain_line _redirects '/delete-account   /delete-data/   301'
 
 
+# ── Streak freezes do not exist ─────────────────────────────────────────────
+# They were taken out of the app in June (#84) and the server never had them,
+# yet the home page, Features and Pricing (in the free plan) promised them.
+# Founder decision 2026-10-12: take every freeze promise out. Banned site-wide
+# so a new page cannot bring the claim back.
+must_not_contain_any_html 'freeze'
+must_not_contain_any_html 'Freeze'
+
 # ── Report ──────────────────────────────────────────────────────────────────
 
 if [ ${#failures[@]} -gt 0 ]; then
