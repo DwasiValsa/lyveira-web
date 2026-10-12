@@ -186,16 +186,20 @@ must_contain delete-data/index.html 'Deleting your data does not cancel a paid s
 #                          (aws_cloudwatch_log_group.this retention_in_days = 30)
 #   Backups up to 35 days — dwasi-infra/terraform/phase1/main.tf:45
 #                          (backup_retention_days = 35), docs/OPERATIONS.md:198
-# The email-hash figure was not merely unverified, it was WRONG: the dedup
-# registry is permanent by design (dwasi-identity app/models/archive.py:58-67,
-# "Never deleted — this is the compliance record") and archived_accounts keeps
-# the encrypted email and display name with no purge job at all. A "30 days"
-# that is really "forever" is the worst kind of published number, so the page
-# now says indefinitely. Crash-report retention belongs to PostHog and nothing
-# in this workspace sets it, so the page no longer names a period.
+#   Deletion record 30 days — dwasi-identity app/services/retention.py
+#                          (ARCHIVE_RETENTION = 30 days: archived_accounts and the
+#                          "deleted" account_references rows are purged; I11,
+#                          deployed 2026-10-09). core-api's sign-in tombstone keeps
+#                          a subject digest for 24 hours (account_tombstones.py).
+# This figure once read 30 days while the dedup registry was in fact permanent,
+# so the page said "indefinitely" until I11 made 30 days true. It must never
+# say indefinitely again while the purge runs, and never 30 days without it.
+# Crash-report retention belongs to PostHog and nothing in this workspace sets
+# it, so the page names no period.
 must_contain delete-data/index.html '<li><strong>Server logs &mdash; 30 days.</strong> These hold request metadata, not your content.</li>'
 must_contain delete-data/index.html '<li><strong>Encrypted database backups &mdash; up to 35 days</strong>, for point-in-time restore.'
-must_contain delete-data/index.html '<li><strong>A deletion record &mdash; kept indefinitely.</strong>'
+must_contain delete-data/index.html '<li><strong>A deletion record &mdash; 30 days.</strong>'
+must_not_contain delete-data/index.html 'kept indefinitely'
 must_not_contain delete-data/index.html 'hash of your email address &mdash; 30 days'
 must_not_contain delete-data/index.html 'Crash reports &mdash; 90 days'
 
@@ -234,11 +238,11 @@ must_contain privacy/index.html '<a href="../delete-data/">request deletion with
 must_contain support/index.html '<a href="../delete-data/">request deletion without the app</a>'
 must_not_contain privacy/index.html 'Settings &rarr; Delete Account'
 must_not_contain privacy/index.html 'Payments and subscriptions (Apple, and RevenueCat'
-# "We delete your personal data" is not the whole truth while identity keeps a
-# permanent dedup row + an encrypted email/display-name archive with no purge
-# job (dwasi-identity app/models/archive.py:58-67, app/services/archive_service.py).
-# The policy has to say so itself, not only on /delete-data.
-must_contain privacy/index.html 'One record outlives the deletion: a one-way hash of your email address, plus your email address and display name held in encrypted form, kept indefinitely'
+# The policy says itself what outlives a deletion, not only /delete-data: the
+# minimal record and its 30 days (identity retention.py, I11), and the backups.
+# The same sentence is the in-app policy's (dwasi-app legal/privacy-policy.tsx).
+must_contain privacy/index.html 'After you delete your account, your content is deleted at once. We keep a minimal deletion record (a hashed reference to your email, internal identifiers, the account type, the reason and the time) for 30 days to prevent silent re-registration, then delete it. Encrypted database backups that may still contain your data expire within 35 days.'
+must_not_contain privacy/index.html 'kept indefinitely'
 
 # ── The Security section must describe the encryption that EXISTS ───────────
 # This is the sentence that got it wrong in the opposite direction: a round of

@@ -46,7 +46,7 @@
 
   <h2>What we keep, and for how long</h2>
   <ul>
-    <li><strong>A deletion record &mdash; kept indefinitely.</strong> A one-way hash of your email address, plus your email address and display name held in encrypted form. It is how we can show that an account existed and was deleted, and how we stop the same address being silently re-registered as though nothing had happened. It holds none of your mood logs, journal entries, or coach conversations.</li>
+    <li><strong>A deletion record &mdash; 30 days.</strong> A hashed reference to your email address, internal identifiers, the account type, the reason and the time. It stops the same address being silently re-registered as though nothing had happened, and then it is deleted. It holds none of your mood logs, journal entries, or coach conversations.</li>
     <li><strong>Server logs &mdash; 30 days.</strong> These hold request metadata, not your content.</li>
     <li><strong>Crash reports and diagnostics</strong>, kept by our diagnostics provider under their own retention schedule &mdash; we do not set a shorter period. No journal or coach content is ever included.</li>
     <li><strong>Encrypted database backups &mdash; up to 35 days</strong>, for point-in-time restore. Backups age out on their own; we do not restore deleted accounts from them.</li>
