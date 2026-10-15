@@ -161,11 +161,18 @@ must_contain_line .assetsignore 'tests'
 # makes the page an actual deletion route (the email path, what is erased,
 # what is kept, the subscription warning) was unguarded.
 must_exist delete-data/index.html
-must_contain delete-data/index.html 'Privacy Settings'
-must_contain delete-data/index.html 'Delete all my data'
 must_contain delete-data/index.html 'You do not need the app installed'
 must_contain delete-data/index.html 'support@lyveira.app'
-must_contain delete-data/index.html 'Export My Data'
+# The in-app way, in the app's own labels: the Settings hub's (app flag
+# settingsHubV2; its Privacy and data page's "Delete account" and "Export my
+# data"). The page named today's labels, which the hub retires, so it changes
+# with the hub. The app pins the same labels in
+# src/__tests__/screens/privacy-and-push-route-accuracy.test.ts.
+must_contain delete-data/index.html 'Profile &rarr; Settings &rarr; Privacy and data &rarr; Delete account'
+must_contain delete-data/index.html 'Profile &rarr; Settings &rarr; Privacy and data &rarr; Export my data'
+must_not_contain delete-data/index.html 'Privacy Settings'
+must_not_contain delete-data/index.html 'Delete all my data'
+must_not_contain delete-data/index.html 'Export My Data'
 must_contain delete-data/index.html '<h2>In the app</h2>'
 must_contain delete-data/index.html '<h2>By email, without the app</h2>'
 must_contain delete-data/index.html '<h2>What gets deleted</h2>'
