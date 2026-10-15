@@ -170,9 +170,6 @@ must_contain delete-data/index.html 'support@lyveira.app'
 # src/__tests__/screens/privacy-and-push-route-accuracy.test.ts.
 must_contain delete-data/index.html 'Profile &rarr; Settings &rarr; Privacy and data &rarr; Delete account'
 must_contain delete-data/index.html 'Profile &rarr; Settings &rarr; Privacy and data &rarr; Export my data'
-must_not_contain delete-data/index.html 'Privacy Settings'
-must_not_contain delete-data/index.html 'Delete all my data'
-must_not_contain delete-data/index.html 'Export My Data'
 must_contain delete-data/index.html '<h2>In the app</h2>'
 must_contain delete-data/index.html '<h2>By email, without the app</h2>'
 must_contain delete-data/index.html '<h2>What gets deleted</h2>'
@@ -240,7 +237,8 @@ must_contain privacy/index.html 'Google on Android'
 # deletion path is exactly what a reviewer validates. The link to the no-app
 # route is pinned too — deleting it left the gate green at one check FEWER,
 # which is the failure mode of counting assertions instead of pinning them.
-must_contain privacy/index.html 'Privacy Settings &rarr; Delete all my data'
+must_contain privacy/index.html 'Profile &rarr; Settings &rarr; Privacy and data &rarr; Delete account'
+must_contain privacy/index.html 'Profile &rarr; Settings &rarr; Privacy and data &rarr; Export my data'
 must_contain privacy/index.html '<a href="../delete-data/">request deletion without the app</a>'
 must_contain support/index.html '<a href="../delete-data/">request deletion without the app</a>'
 must_not_contain privacy/index.html 'Settings &rarr; Delete Account'
@@ -330,7 +328,8 @@ must_contain terms/index.html '<li>You can manage or cancel anytime in your App 
 must_contain terms/index.html 'Refunds are handled by Apple or Google'
 # Support's deletion answer named the same non-existent screen as the policy.
 must_not_contain support/index.html 'Settings &rarr; Delete Account'
-must_contain support/index.html 'Privacy Settings &rarr; Delete all my data'
+must_contain support/index.html 'Profile &rarr; Settings &rarr; Privacy and data &rarr; Delete account'
+must_contain support/index.html 'Profile &rarr; Settings &rarr; Privacy and data &rarr; Export my data'
 must_contain support/index.html 'and again at rest on our servers'
 
 # ── Store-console URLs resolve ──────────────────────────────────────────────
@@ -358,6 +357,15 @@ must_not_contain_any_html 'Freeze'
 must_not_contain_any_html 'AI Mix'
 must_not_contain_any_html 'AI mix'
 must_not_contain_any_html 'AI Soundscape'
+
+# ── The app's labels, as the Settings hub names them ────────────────────────
+# Deleting and exporting are told by the in-app path, in the app's own labels:
+# the Settings hub's (app flag settingsHubV2), Profile -> Settings -> Privacy
+# and data -> Delete account / Export my data, which the in-app policy names
+# too. The hub retires today's three labels, so none may come back on any page.
+must_not_contain_any_html 'Privacy Settings'
+must_not_contain_any_html 'Delete all my data'
+must_not_contain_any_html 'Export My Data'
 
 # ── Report ──────────────────────────────────────────────────────────────────
 
