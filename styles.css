@@ -130,6 +130,9 @@ img, svg { max-width: 100%; display: block; }
 .screen { height: 100%; border-radius: 33px; background: radial-gradient(130% 80% at 50% 0%, #1a1a2c, #0c0c16); overflow: hidden; position: relative; }
 .screen .slide { position: absolute; inset: 0; padding: 46px 18px 18px; display: flex; flex-direction: column; gap: 12px; opacity: 0; transition: opacity .7s var(--ease); }
 .screen .slide.on { opacity: 1; }
+/* Real screenshots (2026-11-10): the image carries its own status bar, so no drawn notch. */
+.phone.real .screen { background: #0c0c16; }
+.screen img.slide { padding: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .sl-greet { font-size: 13px; color: var(--muted); }
 .sl-greet b { display: block; color: var(--text); font-size: 21px; letter-spacing: -0.02em; font-weight: 700; }
 .card-mini { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 13px 14px; }

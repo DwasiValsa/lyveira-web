@@ -161,11 +161,10 @@ must_contain_line .assetsignore 'tests'
 # makes the page an actual deletion route (the email path, what is erased,
 # what is kept, the subscription warning) was unguarded.
 must_exist delete-data/index.html
-must_contain delete-data/index.html 'Privacy Settings'
-must_contain delete-data/index.html 'Delete all my data'
+must_contain delete-data/index.html 'Profile &rarr; Settings &rarr; Privacy and data &rarr; Delete account</strong>, then type DELETE to confirm.'
 must_contain delete-data/index.html 'You do not need the app installed'
 must_contain delete-data/index.html 'support@lyveira.app'
-must_contain delete-data/index.html 'Export My Data'
+must_contain delete-data/index.html 'Settings &rarr; Privacy and data &rarr; Export my data'
 must_contain delete-data/index.html '<h2>In the app</h2>'
 must_contain delete-data/index.html '<h2>By email, without the app</h2>'
 must_contain delete-data/index.html '<h2>What gets deleted</h2>'
@@ -233,7 +232,7 @@ must_contain privacy/index.html 'Google on Android'
 # deletion path is exactly what a reviewer validates. The link to the no-app
 # route is pinned too — deleting it left the gate green at one check FEWER,
 # which is the failure mode of counting assertions instead of pinning them.
-must_contain privacy/index.html 'Privacy Settings &rarr; Delete all my data'
+must_contain privacy/index.html '(Settings &rarr; Privacy and data &rarr; Delete account)'
 must_contain privacy/index.html '<a href="../delete-data/">request deletion without the app</a>'
 must_contain support/index.html '<a href="../delete-data/">request deletion without the app</a>'
 must_not_contain privacy/index.html 'Settings &rarr; Delete Account'
@@ -323,7 +322,7 @@ must_contain terms/index.html '<li>You can manage or cancel anytime in your App 
 must_contain terms/index.html 'Refunds are handled by Apple or Google'
 # Support's deletion answer named the same non-existent screen as the policy.
 must_not_contain support/index.html 'Settings &rarr; Delete Account'
-must_contain support/index.html 'Privacy Settings &rarr; Delete all my data'
+must_contain support/index.html 'Privacy and data &rarr; Delete account'
 must_contain support/index.html 'and again at rest on our servers'
 
 # ── Store-console URLs resolve ──────────────────────────────────────────────
@@ -412,6 +411,106 @@ must_contain features/index.html '<div class="kicker" style="color:var(--teal)">
 must_not_contain_any_html 'on the iPhone where you installed it'
 must_not_contain_any_html 'again on the same iPhone'
 must_contain auth/reset-password/index.html 'from the App Store or Google Play'
+
+# ── Real screenshots (2026-11-10) ───────────────────────────────────────────
+# The hero phone was a hand-drawn mock ("Good morning, Alex", emoji moods, an
+# "AI Coach 🤖" header) of a UI the app stopped having in the 1.2.0 redesign. It
+# now cycles the real store screenshots, so what a visitor sees is what installs.
+must_not_contain index.html 'Good morning,<b>Alex'
+must_not_contain index.html 'AI Coach 🤖'
+for shot in 01-home-checkin 02-coach 03-habits 04-journal 05-calm 06-todays-focus 07-money-and-mood 08-breathing; do
+  must_exist "shots/$shot.webp"
+  must_contain index.html "src=\"/shots/$shot.webp\""
+done
+
+# Every local src= resolves, like every href. An image path typo renders as an
+# empty phone frame with nothing logged anywhere.
+check_srcs() {
+  local file dir src target
+  while IFS= read -r file; do
+    dir="$(dirname "$file")"
+    while IFS= read -r src; do
+      src="${src#src=\"}"
+      src="${src%\"}"
+      case "$src" in http://*|https://*|data:*) continue ;; esac
+      case "$src" in
+        /*) target="$ROOT$src" ;;
+        *)  target="$dir/$src" ;;
+      esac
+      checks=$((checks + 1))
+      [ -f "$target" ] || fail "${file#"$ROOT"/}: src=\"$src\" does not resolve"
+    done < <(grep -oh 'src="[^"]*"' "$file")
+  done < <(html_files)
+}
+check_srcs
+
+# A screenshot without words is a blank to a screen reader.
+screenshots_have_alt() {
+  local file line
+  while IFS= read -r file; do
+    while IFS= read -r line; do
+      checks=$((checks + 1))
+      case "$line" in
+        *'alt=""'*|*'alt=" '*) fail "${file#"$ROOT"/}: a screenshot has an empty alt" ;;
+        *'alt="'*) ;;
+        *) fail "${file#"$ROOT"/}: a screenshot has no alt" ;;
+      esac
+    done < <(grep -o '<img[^>]*src="/shots/[^>]*>' "$file")
+  done < <(html_files)
+}
+screenshots_have_alt
+
+# Link previews use the 1024x500 banner. The square icon under a
+# summary_large_image card was cropped to its middle in every chat app.
+must_exist og-image.png
+for page in index.html features/index.html; do
+  must_contain "$page" '<meta property="og:image" content="https://lyveira.com/og-image.png">'
+  must_contain "$page" '<meta name="twitter:image" content="https://lyveira.com/og-image.png">'
+  must_contain "$page" '<meta property="og:image:height" content="500">'
+done
+
+# ── Holistic copy audit (2026-11-10) ────────────────────────────────────────
+# Every claim checked against the 1.2.0 store builds (iOS 302179f3c, Android
+# 426139942; identical production flags). These pin what was wrong.
+#
+# Settings hub v2 ships in both: the screen is "Privacy and data", its rows are
+# "Export my data", "Delete account" (type DELETE) and "AI features". The old
+# names are what Play and App Review would fail to find.
+must_not_contain_any_html 'Delete all my data'
+must_not_contain_any_html 'Privacy Settings'
+must_not_contain_any_html 'Export My Data'
+must_not_contain_any_html 'Settings → Privacy.'
+must_not_contain_any_html 'Settings &rarr; Privacy,'
+# The coach is free to try (COACH_FREE_LIMIT = 5 per rolling 7 days, core-api);
+# Premium makes it unlimited.
+must_not_contain_any_html 'unlocks the AI Coach'
+must_not_contain_any_html 'adds the AI Coach'
+must_contain pricing/index.html '<li>Try the AI Coach — 5 messages a week</li>'
+must_contain index.html '<li>Try the AI Coach — 5 messages a week</li>'
+must_contain features/index.html '<li>Try the AI Coach — 5 messages a week</li>'
+# Live features no longer sold as coming, and no stale "New" badges.
+must_not_contain_any_html 'See what'"'"'s coming'
+must_not_contain_any_html '<span class="badge soon">Soon</span><h3>Guided Journeys</h3>'
+must_not_contain_any_html 'Sealed Entries'
+must_not_contain_any_html '<span class="badge">New</span>'
+# The mixer is free; only Match my mood is Premium.
+must_not_contain_any_html 'Your own soundscape mixer'
+# Guest mode keeps nothing; mood logs cannot be deleted one by one in the app.
+must_not_contain_any_html 'use the app as a guest'
+must_not_contain delete-data/index.html 'delete individual journal entries, mood logs'
+must_not_contain_any_html 'v1.0.0'
+# The registered Siri phrase includes the app name.
+must_not_contain_any_html 'start a focus session.”'
+
+# Founder decision 2026-11-10: the brief, evening reflection and spark PUSHES
+# reach only DAILY_BRIEF_ALLOWLIST (one account), so the site describes the brief
+# waiting in the app, and lists it as free (no premium gate on /coach/daily-brief).
+must_not_contain_any_html "even when you don't open the app"
+must_not_contain_any_html 'gently checks in'
+must_not_contain_any_html 'gently reaches out'
+must_not_contain_any_html 'It comes to you'
+must_contain pricing/index.html '<li>A morning brief &amp; evening reflection in the app</li>'
+must_contain index.html '<li>A morning brief and an evening reflection, free for everyone</li>'
 
 # ── Report ──────────────────────────────────────────────────────────────────
 
