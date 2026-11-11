@@ -94,7 +94,8 @@ img, svg { max-width: 100%; display: block; }
 .btn-ghost:hover { color: var(--text); background: var(--surface-2); }
 
 .appstore { display: inline-flex; align-items: center; gap: 11px; background: #000; border: 1px solid #33333f;
-  color: #fff; padding: 11px 20px; border-radius: 14px; transition: transform .2s var(--ease), border-color .2s; }
+  color: #fff; padding: 11px 20px; border-radius: 14px; transition: transform .2s var(--ease), border-color .2s;
+  min-width: 180px; justify-content: center; } /* the App Store and Google Play pair match when they stack */
 .appstore:hover { transform: translateY(-2px); border-color: #555; color: #fff; }
 .appstore svg { width: 26px; height: 26px; fill: #fff; }
 .appstore .s { font-size: 11px; color: #c9c9d6; line-height: 1; }

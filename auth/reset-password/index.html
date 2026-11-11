@@ -23,10 +23,11 @@
   <!--
     Web fallback for the password-reset deep link.
 
-    On an iPhone with the app installed and the universal-link association live
-    (AASA worker lists /auth/reset-password), tapping the email link opens the
-    APP directly and this page is never seen. This page is the fallback for the
-    cases iOS universal links can't cover: the link opened in a desktop browser,
+    On a phone with the app installed, tapping the email link opens the APP
+    directly and this page is never seen: iOS universal links (the AASA worker
+    lists /auth/reset-password) and Android App Links (assetlinks.json, with the
+    app claiming lyveira.app/auth/). This page is the fallback for the
+    cases app links can't cover: the link opened in a desktop browser,
     the app isn't installed, or the AASA association hasn't propagated yet. It
     bridges into the app via the lyveira:// custom scheme — it does NOT collect
     the new password itself (the app owns that screen + validation).
@@ -34,7 +35,7 @@
 
   <div class="tldr" id="ok-state">
     <strong>Almost there</strong>
-    <p style="margin:6px 0 0">Open this link in the <strong>Lyveira app</strong> on the iPhone where you installed it to choose a new password.</p>
+    <p style="margin:6px 0 0">Open this link in the <strong>Lyveira app</strong> on the phone where you installed it to choose a new password.</p>
   </div>
 
   <p style="margin:20px 0">
@@ -42,7 +43,7 @@
   </p>
 
   <p class="muted" id="no-app">
-    Don't have the app on this device? Install <strong>Lyveira</strong> from the App Store and open this email link again on the same iPhone. The reset link expires <strong>1 hour</strong> after it was requested — if it has expired, request a new one from the app's <em>Forgot password</em> screen.
+    Don't have the app on this device? Install <strong>Lyveira</strong> from the App Store or Google Play and open this email link again on the same phone. The reset link expires <strong>1 hour</strong> after it was requested — if it has expired, request a new one from the app's <em>Forgot password</em> screen.
   </p>
 
   <div class="tldr" id="bad-state" style="display:none">

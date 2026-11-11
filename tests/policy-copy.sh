@@ -352,6 +352,67 @@ must_not_contain_any_html 'AI Mix'
 must_not_contain_any_html 'AI mix'
 must_not_contain_any_html 'AI Soundscape'
 
+# ── Google Play is live (2026-11-10) ────────────────────────────────────────
+# Lyveira went live on Google Play (com.lyveira.app). From here on the site
+# offers both stores everywhere it offers one: a page with an App Store badge or
+# QR and no Google Play twin sends every Android visitor to a store their phone
+# cannot use, and nothing about that page would look broken.
+PLAY_URL='https://play.google.com/store/apps/details?id=com.lyveira.app'
+
+# Counted, not just present: the home page carries two badges and two QRs, and
+# a pin on "contains one" stays green when the second pair loses its twin.
+store_pairs() {
+  local file a p qa qp
+  while IFS= read -r file; do
+    checks=$((checks + 1))
+    a=$(grep -o 'aria-label="Download on the App Store"' "$file" | wc -l | tr -d ' ')
+    p=$(grep -o 'aria-label="Get it on Google Play"' "$file" | wc -l | tr -d ' ')
+    [ "$a" = "$p" ] || fail "${file#"$ROOT"/}: $a App Store badge(s) but $p Google Play badge(s)"
+    qa=$(grep -o 'QR code that opens Lyveira on the App Store' "$file" | wc -l | tr -d ' ')
+    qp=$(grep -o 'QR code that opens Lyveira on Google Play' "$file" | wc -l | tr -d ' ')
+    [ "$qa" = "$qp" ] || fail "${file#"$ROOT"/}: $qa App Store QR(s) but $qp Google Play QR(s)"
+  done < <(html_files)
+}
+store_pairs
+
+# Every Play link is the listing itself. A typo'd id still answers 200 (Play
+# serves a "not found" page), so only the exact URL is accepted.
+play_links_exact() {
+  local file href
+  while IFS= read -r file; do
+    while IFS= read -r href; do
+      checks=$((checks + 1))
+      [ "$href" = "href=\"$PLAY_URL\"" ] || fail "${file#"$ROOT"/}: Google Play link $href is not $PLAY_URL"
+    done < <(grep -o 'href="https://play.google.com[^"]*"' "$file")
+  done < <(html_files)
+}
+play_links_exact
+must_contain index.html "href=\"$PLAY_URL\""
+must_contain features/index.html "href=\"$PLAY_URL\""
+
+# A generic "Get the app" button cannot know the visitor's phone, so it goes to
+# the home page's download section (both badges), never straight to one store.
+must_not_contain_any_html 'class="btn btn-primary" href="https://apps.apple.com'
+must_not_contain_any_html 'class="btn btn-ghost" href="https://apps.apple.com'
+must_contain index.html 'id="get"'
+
+# "Coming" claims that stopped being true.
+must_not_contain_any_html 'Android on the way'
+must_not_contain_any_html 'Android is on the way'
+must_not_contain_any_html 'iPhone first'
+must_not_contain_any_html 'and Android — all rolling out'
+must_contain index.html 'Lyveira is on the App Store and Google Play now.'
+
+# The widgets, Watch app, Siri and Live Activity are iOS-only; the section that
+# sells them says so now that Android readers see it.
+must_contain index.html '<div class="kicker" style="color:var(--teal)">On iPhone</div>'
+must_contain features/index.html '<div class="kicker" style="color:var(--teal)">On iPhone</div>'
+
+# The reset link opens the app on Android too (App Links on lyveira.app/auth/).
+must_not_contain_any_html 'on the iPhone where you installed it'
+must_not_contain_any_html 'again on the same iPhone'
+must_contain auth/reset-password/index.html 'from the App Store or Google Play'
+
 # ── Report ──────────────────────────────────────────────────────────────────
 
 if [ ${#failures[@]} -gt 0 ]; then
