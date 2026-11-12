@@ -539,6 +539,26 @@ must_contain features/index.html 'work through a Thought Check,'
 must_contain pricing/index.html '<li>Free-form &amp; guided journaling</li>'
 must_contain pricing/index.html '<li><b>Guided Journeys</b> &amp; every course</li>'
 
+# ── The crisis protocol is published, and every page links to it ────────────
+# Product plan row 9b. What the app does when a message suggests a crisis, what
+# it never does and what it records, in plain words; each statement on the page
+# was read against the code on 2026-11-12 (the phone's check, the server's order
+# of checks, the lines shown, what a crisis record holds). The page must keep
+# saying what Lyveira is not, and must keep the first number anyone needs.
+must_exist crisis-protocol/index.html
+must_contain crisis-protocol/index.html 'Lyveira is not an emergency service.'
+must_contain crisis-protocol/index.html 'call or text 988'
+must_contain crisis-protocol/index.html 'Lyveira does not call emergency services, a crisis line, or anyone you know.'
+must_contain crisis-protocol/index.html 'We do not record the words.'
+must_contain support/index.html '<a href="../crisis-protocol/">crisis protocol</a>'
+# The footer of every published page, counted from the page set itself, so a
+# new page cannot ship without the link.
+checks=$((checks + 1))
+while IFS= read -r file; do
+  grep -q 'crisis-protocol/">Crisis protocol</a>' "$file" \
+    || fail "${file#"$ROOT"/}: no footer link to the crisis protocol"
+done < <(html_files)
+
 # ── Report ──────────────────────────────────────────────────────────────────
 
 if [ ${#failures[@]} -gt 0 ]; then
