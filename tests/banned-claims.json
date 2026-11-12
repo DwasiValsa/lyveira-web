@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "about": "Words Lyveira's own copy never uses about itself: it is self-care, not care from a clinician (product plan rows 29 and 9d). Read by src/__tests__/copy/banned-claims.test.ts; lyveira-web/tests/banned-claims.json is a copy of this file.",
+  "match": "case-insensitive, whole word or phrase",
+  "banned": [
+    "therapy", "therapist", "therapeutic", "counselor", "counsellor", "counseling",
+    "psychologist", "psychiatrist", "clinician", "clinical", "clinically proven",
+    "treat", "treats", "treatment", "cure", "cures", "heal", "heals",
+    "diagnose", "diagnosis", "diagnostic", "medical", "medication", "prescription",
+    "patient", "disorder", "AI therapist", "AI therapy", "evidence-based",
+    "science-backed", "proven", "CBT", "DBT",
+    "relieve anxiety", "anxiety relief", "reduce depression", "beat depression",
+    "stop panic attacks", "guaranteed"
+  ],
+  "allowed_phrases": [
+    "Is Lyveira therapy or medical advice?",
+    "not therapy",
+    "not a replacement for therapy",
+    "not medical advice",
+    "does not diagnose",
+    "not a medical device"
+  ],
+  "review": [
+    { "term": "anxiety", "where": "docs/app-store-listing.md keywords" }
+  ]
+}

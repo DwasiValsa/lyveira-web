@@ -512,6 +512,33 @@ must_not_contain_any_html 'It comes to you'
 must_contain pricing/index.html '<li>A morning brief &amp; evening reflection in the app</li>'
 must_contain index.html '<li>A morning brief and an evening reflection, free for everyone</li>'
 
+# ── Lyveira is self-care, and its own copy says only that ───────────────────
+# Product plan rows 29 and 9d (2026-11-12). No page says Lyveira is therapy,
+# treats, diagnoses or is proven, and none names a clinical method: "CBT" came
+# off the home page, Features and Pricing. The word list is
+# tests/banned-claims.json, a copy of dwasi-app's
+# src/test-utils/copy/banned-claims.json (nothing compares the two across repos:
+# copy it again when the app's changes). tests/banned_claims.py reads the
+# VISIBLE text of every published page, so a class name or a script cannot trip
+# it and a claim cannot hide in markup. A legal sentence or a denial that holds
+# one of the words is excused by page and exact text in
+# tests/banned-claims-allowed.tsv, never by dropping the word or the page.
+must_exist tests/banned-claims.json
+must_exist tests/banned-claims-allowed.tsv
+checks=$((checks + 1))
+if claims="$(python3 "$ROOT/tests/banned_claims.py" "$ROOT" 2>&1)"; then
+  :
+else
+  while IFS= read -r line; do
+    [ -n "$line" ] && fail "banned claim: $line"
+  done <<< "$claims"
+fi
+must_not_contain_any_html 'CBT'
+must_contain index.html 'or use guided prompts to gently reframe a thought.'
+must_contain features/index.html 'work through a Thought Check,'
+must_contain pricing/index.html '<li>Free-form &amp; guided journaling</li>'
+must_contain pricing/index.html '<li><b>Guided Journeys</b> &amp; every course</li>'
+
 # ── Report ──────────────────────────────────────────────────────────────────
 
 if [ ${#failures[@]} -gt 0 ]; then

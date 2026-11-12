@@ -1,0 +1,15 @@
+# Sentences on this site that hold a word from banned-claims.json and are not a
+# claim about what Lyveira is: a legal sentence, a denial, an ordinary verb.
+# One per line: the page, a tab, the exact visible text. Each is removed from
+# that page's text before the banned words are searched, so the word stays
+# banned everywhere else on the page. Add a line here; never drop a word from
+# the list or a page from the check.
+privacy/index.html	and we treat them that way
+privacy/index.html	diagnose problems
+privacy/index.html	We do not infer or record a diagnosis
+privacy/index.html	not a medical or emergency service
+support/index.html	not a medical or emergency service
+terms/index.html	does not provide medical, psychological, or crisis services
+terms/index.html	a medical or mental-health emergency
+# Money stress, not a condition. Waiting on a rewording the founder approves.
+features/index.html	so Lyveira treats it gently
