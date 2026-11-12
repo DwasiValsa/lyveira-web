@@ -94,7 +94,9 @@ check_links() {
       href="${href#href=\"}"
       href="${href%\"}"
       case "$href" in
-        mailto:*|http://*|https://*|tel:*|\#*) continue ;;
+        # lyveira: opens the app, not a page of this site. Which app links
+        # may appear at all is pinned under "The start link" below.
+        mailto:*|http://*|https://*|tel:*|lyveira:*|\#*) continue ;;
       esac
       href="${href%%\#*}"   # drop the fragment
       href="${href%%\?*}"   # drop the query
@@ -558,6 +560,34 @@ while IFS= read -r file; do
   grep -q 'crisis-protocol/">Crisis protocol</a>' "$file" \
     || fail "${file#"$ROOT"/}: no footer link to the crisis protocol"
 done < <(html_files)
+
+# ── The start link ──────────────────────────────────────────────────────────
+# Product plan row 29. /start/?c=<choice> opens the app at its coach with a
+# starter in the composer. The link carries a choice from a closed set, never
+# words: main.js passes only a known one through, and the app looks the words up
+# (dwasi-app src/utils/startLink.ts holds the same set). Wording approved
+# 2026-11-12. The page offers both stores (store_pairs counts it), and it loads
+# one script, the site's own: no analytics, no cookie.
+must_exist start/index.html
+must_contain start/index.html '<h1>Talk it through, then<br><span class="grad-text">do one small thing</span></h1>'
+must_contain start/index.html '<a class="btn btn-primary" data-open-app href="lyveira:///start">Open Lyveira</a>'
+must_contain start/index.html '<a class="btn btn-ghost" href="lyveira:///start?c=habit">Help me start one small habit</a>'
+must_contain start/index.html "<a class=\"btn btn-ghost\" href=\"lyveira:///start?c=sleep\">I'd like to sleep better</a>"
+must_contain main.js "var CHOICES = ['habit', 'sleep', 'friend'];"
+must_contain main.js "if (CHOICES.indexOf(choice) !== -1) {"
+checks=$((checks + 1))
+# Occurrences, not lines: a second tag on the same line is still a second tag.
+scripts="$(grep -o '<script' "$ROOT/start/index.html" | wc -l | tr -d ' ')"
+[ "$scripts" = "1" ] || fail "start/index.html: $scripts script tags, expected only the site's own main.js"
+must_contain start/index.html '<script src="../main.js" defer></script>'
+# Every app link on the page is the start route, with no choice or a known one.
+checks=$((checks + 1))
+while IFS= read -r link; do
+  case "$link" in
+    'lyveira:///start'|'lyveira:///start?c=habit'|'lyveira:///start?c=sleep'|'lyveira:///start?c=friend') ;;
+    *) fail "start/index.html: app link \"$link\" is not a start link with a known choice" ;;
+  esac
+done < <(grep -o 'lyveira:[^"]*' "$ROOT/start/index.html")
 
 # ── Report ──────────────────────────────────────────────────────────────────
 

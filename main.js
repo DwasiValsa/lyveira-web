@@ -51,6 +51,19 @@
     setInterval(function () { p = (p + 1) % phases.length; breath.textContent = phases[p]; }, 2000);
   }
 
+  // ── Start page: pass a known choice through to the app ──────────────────
+  // /start/?c=<choice>. Only a choice from this closed set is passed on, and the
+  // app holds the same set (dwasi-app src/utils/startLink.ts) and the words for
+  // each: a link carries no text. Anything else opens the app with no choice.
+  var openApp = document.querySelector('[data-open-app]');
+  if (openApp) {
+    var CHOICES = ['habit', 'sleep', 'friend'];
+    var choice = new URLSearchParams(window.location.search).get('c');
+    if (CHOICES.indexOf(choice) !== -1) {
+      openApp.setAttribute('href', 'lyveira:///start?c=' + choice);
+    }
+  }
+
   // ── Footer year ────────────────────────────────────────────────────────────
   var y = document.querySelector('[data-year]');
   if (y) y.textContent = '2026';
